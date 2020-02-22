@@ -25,7 +25,7 @@ app.use(bodyParser.json())
 app.set('jwt-secret', config.jwt_key)
 
 // configure api router
-app.use('/api', require('./api'))
+app.use('/api', require('./api/routes'))
 
 // open the server
 app.listen(port, () => {
