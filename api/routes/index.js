@@ -1,10 +1,10 @@
 const router = require('express').Router();
-// const auth = require('./auth/auth');
+const auth = require('./auth');
 const member = require('./member');
-// const board = require('./board/board');
+const board = require('./board');
 
-// router.use('/auth', auth);
-// router.use('/board', board);
+router.use('/auth', auth);
+router.use('/board', board);
 router.use('/member', member);
 
 module.exports = router;

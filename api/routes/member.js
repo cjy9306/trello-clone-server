@@ -1,11 +1,11 @@
 const router = require('express').Router()
 const controller = require('../controllers/member.controller')
-// const authMiddleware = require('../../middlewares/auth')
+const authMiddleware = require('../../middlewares/auth')
 
-router.get('/:member_id/boards', authMiddleware)
-router.get('/:member_id/boards', controller.getAllBoards);
+router.get('/:memberId/boards', authMiddleware)
+router.get('/:memberId/boards', controller.getAllBoards);
 
-router.get('/:member_id/teams', authMiddleware);
-router.get('/:member_id/teams', controller.getTeams);
+router.get('/:memberId/teams', authMiddleware);
+router.get('/:memberId/teams', controller.getTeams);
 
 module.exports = router;
