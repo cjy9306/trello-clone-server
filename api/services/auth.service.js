@@ -38,8 +38,9 @@ class AuthService {
                 gender: memberDTO.gender,
                 email: memberDTO.email,
                 phone: memberDTO.phone,
-                email_verification: false,
+                email_verification: true,
                 verify_code: verify_code,
+                social_login_provider: memberDTO.social_login_provider,
             });
 
             // const sendVerifyEmail = async (result) => {
@@ -71,13 +72,12 @@ class AuthService {
         }
     };
 
-    login = async (userDTO, secret_key) => {
-        
+    login = async (memberDTO, secret_key) => {
         try {
             const member = await models.Members.findOne({
                 where: {
-                    username: userDTO.username,
-                    password: userDTO.password,
+                    username: memberDTO.username,
+                    password: memberDTO.password,
                 }
             });
 
@@ -100,7 +100,21 @@ class AuthService {
         }
     };
 
+    checkUser = async (memberDTO) => {
+        try {
+            const member = await models.Members.findOne({
+                where: {
+                    username: memberDTO.username,
+                    password: memberDTO.password,
+                }
+            });
 
+            if (!member) return false;
+            else return true;
+        } catch(e) {
+            throw e;
+        }
+    }
 };
 
 module.exports = new AuthService();

@@ -28,6 +28,7 @@ Members.init({
     phone: Sequelize.STRING,
     status: Sequelize.STRING,
     email_verification: Sequelize.BOOLEAN,
+    social_login_provider: Sequelize.TEXT,
 }, { sequelize: sequelize, modelName: 'members', timestamps: false});
 
 class Team extends Sequelize.Model{}
