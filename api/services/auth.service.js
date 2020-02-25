@@ -28,7 +28,7 @@ class AuthService {
 
             if (check) throw new Error('The username already exists')
 
-            const member = models.Members.create({
+            const member = await models.Members.create({
                 id: 0,
                 username: memberDTO.username,
                 password: memberDTO.password,
@@ -74,14 +74,16 @@ class AuthService {
 
     login = async (memberDTO, secret_key) => {
         try {
+            console.log('memberDTO ; ' + JSON.stringify(memberDTO))
             const member = await models.Members.findOne({
                 where: {
                     username: memberDTO.username,
                     password: memberDTO.password,
                 }
             });
-
+            console.log('after findOne ; ' + JSON.stringify(member))
             if (!member) throw new Error('Username or password is invalid.');
+            console.log('after throw new ')
             const token = jwt.sign(
                 {
                     id: member.member_id,
@@ -95,7 +97,7 @@ class AuthService {
                 console.log(token)
             return { token, member_id: member.member_id, username: member.username };
         } catch(e) {
-            console.log('error ;' + JSON.stringify(e))
+            console.log('error ;' + JSON.stringify(e.message))
             throw e;
         }
     };

@@ -16,14 +16,12 @@ exports.socialLogin = async (req, res) => {
     const memberDTO = req.body;
     try {
         const userExist = await AuthService.checkUser(memberDTO);
-
         if (!userExist) {
-            await AuthService.register(memberDTO);
+            const result = await AuthService.register(memberDTO);
         }
 
         const secret_key = req.app.get('jwt-secret');
-        data = await AuthService.login(memberDTO, secret_key);
-
+        const data = await AuthService.login(memberDTO, secret_key);
         res.status(200).json({success: true, data});
     } catch(e) {
         res.status(400).json({success: false, data: e})
