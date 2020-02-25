@@ -49,7 +49,9 @@ exports.updateCardSequence = async (req, res) => {
 };
 
 exports.updateListSequence = async (req, res) => {
-    const seqDTO = req.body;
+    const { boardId } = req.params;
+    let seqDTO = req.body;
+    seqDTO['boardId'] = boardId;
     try {
         const message = await BoardService.updateListSequence(seqDTO);
 

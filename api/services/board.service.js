@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize');
 const models = require('../../models/models');
+const Op = Sequelize.Op;
 
 class BoardService {
     getAllBoards = async (memberId) => {
@@ -193,7 +194,7 @@ class BoardService {
                     }
                 );
 
-                result = await models.Card.update(
+                await models.Card.update(
                     {
                         seq: seqDTO.destCardSeq,
                         list_id: seqDTO.destListId,
@@ -242,7 +243,7 @@ class BoardService {
                     {
                         where: {
                             [Op.and]: [
-                                { board_id: board_id },
+                                { board_id: seqDTO.boardId },
                                 { seq: {[Op.gte]: seqDTO.destListSeq}},
                                 { seq: {[Op.lte]: seqDTO.sourceListSeq}},
                             ]
