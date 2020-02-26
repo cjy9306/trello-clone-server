@@ -86,6 +86,13 @@ router.put('/:boardId/card/:cardId/labels/:labelId', controller.updateCardLabel)
 router.get('/:boardId/labels', authMiddleware);
 router.get('/:boardId/labels', controller.getAllLabels);
 
+// members
+router.get('/:boardId/members', authMiddleware);
+router.get('/:boardId/members', controller.getBoardMembers);
+
+router.post('/:boardId/members', authMiddleware);
+router.post('/:boardId/members', controller.addBoardMember);
+
 // router.post('', authMiddleware)
 // router.post('', upload.array('files'))
 // router.post('', controller.post)

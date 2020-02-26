@@ -557,6 +557,46 @@ class BoardService {
         }
     };
 
+    getBoardMembers = async (boardId) => {
+        try {
+            const members = await models.Members.findAll({
+                include: [
+                    {
+                        model: models.Board,
+                        where: {
+                            board_id: boardId,
+                        }
+                    },
+                ]
+            })
+
+            return { members };
+        } catch(e) {
+            throw e;
+        }
+    };
+
+    addBoardMember = async (memberDTO) => {
+        try {
+            const member = await models.Members.findOne({
+                where: {
+                    email: memberDTO.email,
+                }
+            });
+
+            if (!member) throw new Error('The member has email does not exist.');
+
+            await models.BoardMember.create({
+                board_id: memberDTO.boardId,
+                member_id: member.member_id,
+                role: 'member',
+            });
+
+            return 'add member success';
+        } catch(e) {
+            throw e;
+        }
+    };
 };
 
 module.exports = new BoardService();

@@ -229,3 +229,27 @@ exports.getAllLabels = async (req, res) => {
         res.status(400).json({success: false, data: e.message})
     }
 };
+
+exports.getBoardMembers = async (req, res) => {
+    const { boardId } = req.params;
+    try {
+        const members = await BoardService.getBoardMembers(boardId);
+
+        res.status(200).json({success: true, data: members});
+    } catch(e) {
+        res.status(400).json({success: false, data: e.message})
+    }
+};
+
+exports.addBoardMember = async (req, res) => {
+    const { boardId } = req.params;
+    let memberDTO = req.body;
+    memberDTO['boardId'] = boardId;
+    try {
+        const message = await BoardService.addBoardMember(memberDTO);
+
+        res.status(200).json({success: true, data: message});
+    } catch(e) {
+        res.status(400).json({success: false, data: e.message})
+    }
+};
