@@ -26,8 +26,9 @@ class BoardService {
                         model: models.Board,
                         where: {
                             team_id: Sequelize.col('team.team_id'),
-                        }
-                    }
+                        },
+                        required: false,
+                    },
                 ]
             });
             
