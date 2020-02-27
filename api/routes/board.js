@@ -93,6 +93,9 @@ router.get('/:boardId/members', controller.getBoardMembers);
 router.post('/:boardId/members', authMiddleware);
 router.post('/:boardId/members', controller.addBoardMember);
 
+router.delete('/:boardId/members/:memberId', authMiddleware);
+router.delete('/:boardId/members/:memberId', controller.deleteBoardMember);
+
 // router.post('', authMiddleware)
 // router.post('', upload.array('files'))
 // router.post('', controller.post)

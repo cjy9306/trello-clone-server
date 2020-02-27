@@ -6,11 +6,19 @@ class BoardService {
     getAllBoards = async (memberId) => {
         try {
             const personalBoards = await models.Board.findAll({
-                where: {
-                    member_id: memberId,
-                    team_id: null,
-                }
+                include: [
+                    {
+                        model: models.Members,
+                        through: {
+                            attributes: ['board_id','member_id']
+                        },
+                        where: {
+                            member_id: memberId
+                        }
+                    }
+                ],
             });
+
             const teamBoards = await models.Team.findAll({
                 include: [
                     {
@@ -587,12 +595,27 @@ class BoardService {
             if (!member) throw new Error('The member has email does not exist.');
 
             await models.BoardMember.create({
-                board_id: memberDTO.boardId,
+                board_id: memberDTO.board_id,
                 member_id: member.member_id,
                 role: 'member',
             });
 
             return 'add member success';
+        } catch(e) {
+            throw e;
+        }
+    };
+
+    deleteBoardMember = async (boardId, memberId) => {
+        try {
+            await models.BoardMember.destroy({
+                where: {
+                    board_id: boardId,
+                    member_id: memberId,
+                }
+            });
+
+            return 'delete member success';
         } catch(e) {
             throw e;
         }

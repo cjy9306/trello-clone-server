@@ -143,9 +143,6 @@ List.belongsTo(Board, {foreignKey: 'board_id', sourceKey: 'board_id'});
 Team.hasMany(Board, {foreignKey: 'team_id', sourceKey: 'team_id', onDelete: 'cascade'});
 Board.belongsTo(Team, {foreignKey: 'team_id', sourceKey: 'team_id'});
 
-Members.hasMany(Board, {foreignKey: 'member_id', sourceKey: 'member_id', onDelete: 'cascade'});
-Board.belongsTo(Members, {foreignKey: 'member_id', sourceKey: 'member_id'});
-
 Board.belongsToMany(Members, {through: 'board_member', foreignKey:'board_id'});
 Members.belongsToMany(Board, {through: 'board_member', foreignKey:'member_id'});
 

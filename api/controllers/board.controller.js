@@ -244,9 +244,20 @@ exports.getBoardMembers = async (req, res) => {
 exports.addBoardMember = async (req, res) => {
     const { boardId } = req.params;
     let memberDTO = req.body;
-    memberDTO['boardId'] = boardId;
+    memberDTO['board_id'] = boardId;
     try {
         const message = await BoardService.addBoardMember(memberDTO);
+
+        res.status(200).json({success: true, data: message});
+    } catch(e) {
+        res.status(400).json({success: false, data: e.message})
+    }
+};
+
+exports.deleteBoardMember = async (req, res) => {
+    const { boardId, memberId } = req.params;
+    try {
+        const message = await BoardService.deleteBoardMember(boardId, memberId);
 
         res.status(200).json({success: true, data: message});
     } catch(e) {
