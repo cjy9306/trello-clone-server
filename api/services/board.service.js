@@ -17,6 +17,9 @@ class BoardService {
                         }
                     }
                 ],
+                where: {
+                    team_id: null,
+                }
             });
 
             const teamBoards = await models.Team.findAll({

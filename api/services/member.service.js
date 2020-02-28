@@ -1,8 +1,4 @@
-const Sequelize = require('sequelize');
 const models = require('../../models/models');
-const MemberModel = models.Members;
-const BoardModel = models.Board;
-const TeamModel = models.Team;
 
 class MemberService {
     getTeams = async (memberId) => {
