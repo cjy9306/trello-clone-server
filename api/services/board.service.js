@@ -104,7 +104,20 @@ class BoardService {
             trans.commit();
             return { board };
         } catch(e) {
-            trans.rollback();
+            throw new Error(e);
+        }
+    };
+
+    deleteBoard = async (boardId) => {
+        try {
+            await models.Board.destroy({
+                where: {
+                    board_id: boardId,
+                }
+            });
+
+            return 'delete board success';
+        } catch(e) {
             throw new Error(e);
         }
     };
@@ -223,7 +236,6 @@ class BoardService {
             trans.commit();
             return 'update success';
         } catch(e) {
-            trans.rollback();
             throw e;
         } 
     };
@@ -280,7 +292,6 @@ class BoardService {
             trans.commit();
             return 'update success';
         } catch(e) {
-            trans.rollback();
             throw e;
         }
     };
@@ -367,7 +378,6 @@ class BoardService {
             trans.commit();
             return { checklist };
         } catch(e) {
-            trans.rollback();
             throw e;
         }
     };
@@ -427,7 +437,6 @@ class BoardService {
             trans.commit();
             return { checklistItem };
         } catch(e) {
-            trans.rollback();
             throw e;
         }
     };

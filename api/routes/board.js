@@ -25,6 +25,9 @@ router.post('', controller.createBoard)
 router.get('/:boardId', authMiddleware)
 router.get('/:boardId', controller.getBoard)
 
+router.delete('/:boardId', authMiddleware);
+router.delete('/:boardId', controller.deleteBoard);
+
 // list
 router.post('/:boardId/list', authMiddleware);
 router.post('/:boardId/list', controller.createList);

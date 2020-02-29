@@ -1,11 +1,34 @@
 const TeamService = require('../services/team.service');
 
+
+exports.createTeam = async (req, res) => {
+    let teamDTO = req.body;
+    try {
+        const team = await TeamService.createTeam(teamDTO);
+
+        res.status(200).json({success: true, data: team});
+    } catch(e) {
+        res.status(400).json({success: false, data: e})
+    }
+};
+
 exports.getTeam = async (req, res) => {
     const { teamId } = req.params;
     try {
         const data = await TeamService.getTeam(teamId);
 
         res.status(200).json({success: true, data});
+    } catch(e) {
+        res.status(400).json({success: false, data: e})
+    }
+};
+
+exports.deleteTeam = async (req, res) => {
+    const { teamId } = req.params;
+    try {
+        const message = await TeamService.deleteTeam(teamId);
+
+        res.status(200).json({success: true, data: message});
     } catch(e) {
         res.status(400).json({success: false, data: e})
     }

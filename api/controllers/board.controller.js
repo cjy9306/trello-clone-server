@@ -25,6 +25,18 @@ exports.createBoard = async (req, res) => {
     }
 };
 
+exports.deleteBoard = async (req, res) => {
+    const { boardId } = req.params;
+
+    try {
+        const message = await BoardService.deleteBoard(boardId);
+
+        res.status(200).json({success: true, data: message});
+    } catch(e) {
+        res.status(400).json({success: false, data: e.message})
+    }
+}
+
 exports.createList = async (req, res) => {
     let listDTO = req.body;
     listDTO['board_id'] = req.params.boardId;
