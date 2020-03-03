@@ -79,6 +79,24 @@ class TeamService {
         }
     };
 
+    updateTeam = async (teamDTO) => {
+        try {
+            await models.Team.update({
+                    team_name: teamDTO.team_name,
+                    description: teamDTO.description,
+                }, {
+                    where: {
+                        team_id: teamDTO.team_id,
+                    }
+                }
+            )
+
+            return 'update team success';
+        } catch(e) {
+            throw e;
+        }
+    };
+
     deleteTeam = async (teamId) => {
         try {
             await models.Team.destroy({

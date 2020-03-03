@@ -23,6 +23,19 @@ exports.getTeam = async (req, res) => {
     }
 };
 
+exports.updateTeam = async (req, res) => {
+    const { teamId } = req.params;
+    let teamDTO = req.body;
+    teamDTO['team_id'] = teamId;
+    try {
+        const message = await TeamService.updateTeam(teamDTO);
+
+        res.status(200).json({success: true, data: message});
+    } catch(e) {
+        res.status(400).json({success: false, data: e})
+    }
+};
+
 exports.deleteTeam = async (req, res) => {
     const { teamId } = req.params;
     try {
