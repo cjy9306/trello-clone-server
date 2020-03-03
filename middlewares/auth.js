@@ -2,13 +2,13 @@ const jwt = require('jsonwebtoken')
 
 const authMiddleware = (req, res, next) => {
     // read the token from header or url 
-    const token = req.headers['x-access-token'] || req.query.token
+    const token = req.headers['accesstoken'] || req.query.token;
     // console.log('authmiddleware ; ' + token)
-    // token does not exist
-    if(!token) {
+    
+    if (!token) {
         return res.status(403).json({
             success: false,
-            message: 'not logged in'
+            data: 'not logged in'
         })
     }
 
