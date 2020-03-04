@@ -390,6 +390,20 @@ class BoardService {
         }
     };
 
+    deleteCard = async (cardId) => {
+        try {
+            await models.Card.destroy({
+                where: {
+                    card_id: cardId
+                }
+            });
+
+            return 'delete card success';
+        } catch(e) {
+            throw e;
+        }
+    }
+
     getCardMembers = async (cardId) => {
         try {
             const members = await models.Members.findAll({

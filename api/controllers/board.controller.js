@@ -95,6 +95,17 @@ exports.getCard = async (req, res) => {
 	}
 };
 
+exports.deleteCard = async (req, res) => {
+	const { cardId } = req.params;
+	try {
+		const message = await BoardService.deleteCard(cardId);
+
+		res.status(200).json({ success: true, data: message });
+	} catch (e) {
+		res.status(400).json({ success: false, data: e.message });
+	}
+};
+
 exports.getCardMembers = async (req, res) => {
 	const { cardId } = req.params;
 	try {

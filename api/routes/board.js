@@ -55,6 +55,9 @@ router.post('/:boardId/list/:listId/card', controller.createCard);
 router.get('/:boardId/card/:cardId', authMiddleware);
 router.get('/:boardId/card/:cardId', controller.getCard);
 
+router.delete('/:boardId/card/:cardId', authMiddleware);
+router.delete('/:boardId/card/:cardId', controller.deleteCard);
+
 router.put('/:boardId/card/:cardId/description', authMiddleware);
 router.put('/:boardId/card/:cardId/description', controller.updateCardDescription);
 
