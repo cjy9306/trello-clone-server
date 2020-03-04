@@ -1,8 +1,8 @@
-const router = require('express').Router()
+const router = require('express').Router();
 const controller = require('../controllers/board.controller');
-const authMiddleware = require('../../middlewares/auth')
+const authMiddleware = require('../../middlewares/auth');
 const multer = require('multer');
-const path = require("path");
+const path = require('path');
 
 // const storage = multer.diskStorage({
 //     destination: function(req, file ,callback){
@@ -19,11 +19,11 @@ const path = require("path");
 //     storage: storage,
 // });
 
-router.post('', authMiddleware)
-router.post('', controller.createBoard)
+router.post('', authMiddleware);
+router.post('', controller.createBoard);
 
-router.get('/:boardId', authMiddleware)
-router.get('/:boardId', controller.getBoard)
+router.get('/:boardId', authMiddleware);
+router.get('/:boardId', controller.getBoard);
 
 router.delete('/:boardId', authMiddleware);
 router.delete('/:boardId', controller.deleteBoard);
@@ -33,18 +33,26 @@ router.post('/:boardId/list', authMiddleware);
 router.post('/:boardId/list', controller.createList);
 
 // list, card seq
-router.put('/:boardId/list/:listId/card/seq', authMiddleware)
+router.put('/:boardId/list/:listId/card/seq', authMiddleware);
 router.put('/:boardId/list/:lisId/card/seq', controller.updateCardSequence);
 
-router.put('/:boardId/list/seq', authMiddleware)
+router.put('/:boardId/list/seq', authMiddleware);
 router.put('/:boardId/list/seq', controller.updateListSequence);
 
-
 // card
-router.post('/:boardId/list/:listId/card', authMiddleware)
+router.get('/:boardId/card/:cardId/members', authMiddleware);
+router.get('/:boardId/card/:cardId/members', controller.getCardMembers);
+
+router.post('/:boardId/card/:cardId/member', authMiddleware);
+router.post('/:boardId/card/:cardId/member', controller.addCardMember);
+
+router.delete('/:boardId/card/:cardId/member/:memberId', authMiddleware);
+router.delete('/:boardId/card/:cardId/member/:memberId', controller.deleteCardMember);
+
+router.post('/:boardId/list/:listId/card', authMiddleware);
 router.post('/:boardId/list/:listId/card', controller.createCard);
 
-router.get('/:boardId/card/:cardId', authMiddleware)
+router.get('/:boardId/card/:cardId', authMiddleware);
 router.get('/:boardId/card/:cardId', controller.getCard);
 
 router.put('/:boardId/card/:cardId/description', authMiddleware);
@@ -73,7 +81,6 @@ router.put('/:boardId/checklist_item/:itemId', controller.updateChecklistItem);
 
 router.delete('/:boardId/checklist_item/:itemId', authMiddleware);
 router.delete('/:boardId/checklist_item/:itemId', controller.deleteChecklistItem);
-
 
 // comment
 router.post('/:boardId/card/:cardId/comment', authMiddleware);
@@ -106,4 +113,4 @@ router.delete('/:boardId/members/:memberId', controller.deleteBoardMember);
 // router.delete('/:id', authMiddleware)
 // router.delete('/:id', controller.deletePost);
 
-module.exports = router
+module.exports = router;

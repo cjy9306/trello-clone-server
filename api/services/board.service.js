@@ -81,6 +81,25 @@ class BoardService {
         }
     };
 
+    getBoardMembers = async (boardId) => {
+        try {
+            const members = await models.Members.findAll({
+                include: [
+                    {
+                        model: models.Board,
+                        where: {
+                            board_id: boardId,
+                        }
+                    },
+                ]
+            })
+
+            return { members };
+        } catch(e) {
+            throw e;
+        }
+    };
+
     createBoard = async (boardDTO) => {
         const trans = await models.sequelize.transaction();
 
@@ -313,7 +332,7 @@ class BoardService {
         }
     };
 
-    // get card, checklist, comments
+    // get card, checklist, comments, members
     getCard = async (cardId) => {
         try {
             const card = await models.Card.findOne({
@@ -352,7 +371,80 @@ class BoardService {
                     ['comment_id', 'asc'],
                 ]
             });
-            return { card, checklist, comments };
+
+            const members = await models.Members.findAll({
+                include: [{
+                    model: models.Card,
+                    through: {
+                        attributes: ['card_id', 'card_name'],
+                    }, 
+                    where: {
+                        card_id: cardId,
+                    }
+                }]
+            });
+
+            return { card, checklist, comments, members };
+        } catch(e) {
+            throw e;
+        }
+    };
+
+    getCardMembers = async (cardId) => {
+        try {
+            const members = await models.Members.findAll({
+                include: [{
+                    model: models.Card,
+                    through: {
+                        attributes: ['card_id', 'card_name'],
+                    },
+                    where: {
+                        card_id: cardId,
+                    }
+                }]
+            });
+
+            return { members };
+        } catch(e) {
+            throw e;
+        }
+    };
+
+    addCardMember = async (memberDTO) => {
+        const trans = await models.sequelize.transaction();
+        try {
+            const member = await models.Members.findOne({
+                where: {
+                    email: memberDTO.email,
+                }, 
+                transaction: trans,
+            });
+
+            if (!member) throw new Error('member not found')
+            
+            await models.CardMember.create({
+                card_id: memberDTO.card_id,
+                member_id: member.member_id,
+            }, { transaction: trans });
+
+            trans.commit();
+            return { member };
+        } catch(e) {
+            trans.rollback();
+            throw e;
+        }
+    };
+
+    deleteCardMember = async (cardId, memberId) => {
+        try {
+            await models.CardMember.destroy({
+                where: {
+                    card_id: cardId,
+                    member_id: memberId,
+                }
+            })
+
+            return 'delete card member success';
         } catch(e) {
             throw e;
         }
@@ -577,24 +669,7 @@ class BoardService {
         }
     };
 
-    getBoardMembers = async (boardId) => {
-        try {
-            const members = await models.Members.findAll({
-                include: [
-                    {
-                        model: models.Board,
-                        where: {
-                            board_id: boardId,
-                        }
-                    },
-                ]
-            })
-
-            return { members };
-        } catch(e) {
-            throw e;
-        }
-    };
+    
 
     addBoardMember = async (memberDTO) => {
         try {
@@ -632,6 +707,8 @@ class BoardService {
             throw e;
         }
     };
+
+    
 };
 
 module.exports = new BoardService();
