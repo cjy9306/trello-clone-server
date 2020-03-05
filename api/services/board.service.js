@@ -169,13 +169,27 @@ class BoardService {
                         list_id: listDTO.list_id
                     }
                 }
-                );
+            );
             
             return 'update success';
         } catch(e) {
             throw e;
         }
     };
+
+    deleteList = async (listId) => {
+        try {
+            await models.List.destroy({
+                where: {
+                    list_id: listId
+                }
+            });
+            
+            return 'delete success';
+        } catch(e) {
+            throw e;
+        }
+    }
 
     updateCardSequence = async (seqDTO) => {
         const trans = await models.sequelize.transaction();

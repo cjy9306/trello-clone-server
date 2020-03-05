@@ -61,6 +61,17 @@ exports.updateList = async (req, res) => {
 	}
 };
 
+exports.deleteList = async (req, res) => {
+	const { listId } = req.params;
+	try {
+		const message = await BoardService.deleteList(listId);
+
+		res.status(200).json({ success: true, data: message });
+	} catch (e) {
+		res.status(400).json({ success: false, data: e.message });
+	}
+};
+
 exports.updateCardSequence = async (req, res) => {
 	const seqDTO = req.body;
 	try {

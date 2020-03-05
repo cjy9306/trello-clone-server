@@ -35,6 +35,9 @@ router.post('/:boardId/list', controller.createList);
 router.put('/:boardId/list/:listId', authMiddleware);
 router.put('/:boardId/list/:listId', controller.updateList);
 
+router.delete('/:boardId/list/:listId', authMiddleware);
+router.delete('/:boardId/list/:listId', controller.deleteList);
+
 // list, card seq
 router.put('/:boardId/list/:listId/card/seq', authMiddleware);
 router.put('/:boardId/list/:lisId/card/seq', controller.updateCardSequence);
