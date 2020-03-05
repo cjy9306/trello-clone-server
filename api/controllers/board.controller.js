@@ -48,6 +48,19 @@ exports.createList = async (req, res) => {
 	}
 };
 
+exports.updateList = async (req, res) => {
+	const { listId } = req.params;
+	let listDTO = req.body;
+	listDTO['list_id'] = listId;
+	try {
+		const message = await BoardService.updateList(listDTO);
+
+		res.status(200).json({ success: true, data: message });
+	} catch (e) {
+		res.status(400).json({ success: false, data: e.message });
+	}
+};
+
 exports.updateCardSequence = async (req, res) => {
 	const seqDTO = req.body;
 	try {

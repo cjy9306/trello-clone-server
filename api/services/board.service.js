@@ -157,6 +157,26 @@ class BoardService {
         }
     };
 
+    updateList = async (listDTO) => {
+        try {
+            await models.List.update(
+                {
+                    list_name: listDTO.list_name,
+                    seq: listDTO.seq,
+                },
+                {
+                    where: {
+                        list_id: listDTO.list_id
+                    }
+                }
+                );
+            
+            return 'update success';
+        } catch(e) {
+            throw e;
+        }
+    };
+
     updateCardSequence = async (seqDTO) => {
         const trans = await models.sequelize.transaction();
         try {
