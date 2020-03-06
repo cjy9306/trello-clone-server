@@ -165,6 +165,17 @@ exports.deleteCardMember = async (req, res) => {
 	}
 };
 
+exports.updateCard = async (req, res) => {
+	let cardDTO = req.body;
+	try {
+		const message = await BoardService.updateCard(cardDTO);
+
+		res.status(200).json({ success: true, data: message });
+	} catch (e) {
+		res.status(400).json({ success: false, data: e.message });
+	}
+};
+
 exports.updateCardDescription = async (req, res) => {
 	const { cardId } = req.params;
 	let cardDTO = req.body;

@@ -64,6 +64,9 @@ router.get('/:boardId/card/:cardId', controller.getCard);
 router.delete('/:boardId/card/:cardId', authMiddleware);
 router.delete('/:boardId/card/:cardId', controller.deleteCard);
 
+router.put('/:boardId/card/:cardId', authMiddleware);
+router.put('/:boardId/card/:cardId', controller.updateCard);
+
 router.put('/:boardId/card/:cardId/description', authMiddleware);
 router.put('/:boardId/card/:cardId/description', controller.updateCardDescription);
 

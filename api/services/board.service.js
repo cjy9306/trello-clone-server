@@ -615,6 +615,27 @@ class BoardService {
         }
     };
 
+    updateCard = async (cardDTO) => {
+        try {
+            await models.Card.update(
+                {
+                    card_name: cardDTO.card_name,
+                    description: cardDTO.description,
+                    due_date: cardDTO.due_date,
+                },
+                {
+                    where: {
+                        card_id: cardDTO.card_id,
+                    }
+                }
+            );
+            
+            return 'update success';
+        } catch(e) {
+            throw e;
+        }
+    };
+
     updateCardDescription = async (cardDTO) => {
         try {
             await models.Card.update(
