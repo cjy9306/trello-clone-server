@@ -8,10 +8,10 @@ const cors = require('cors');
 /* =======================
     LOAD THE CONFIG
 ==========================*/
-const config = require('./config/environment');
-const port = process.env.PORT || 5000;
 const dotenv = require('dotenv');
 dotenv.config();
+const config = require('./config/environment');
+const port = process.env.PORT || 5000;
 
 /* =======================
     EXPRESS CONFIGURATION
