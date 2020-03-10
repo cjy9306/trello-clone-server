@@ -15,8 +15,9 @@ exports.socialLogin = async (req, res) => {
 	const memberDTO = req.body;
 	try {
 		const userExist = await AuthService.checkUser(memberDTO);
+
 		if (!userExist) {
-			const result = await AuthService.register(memberDTO);
+			await AuthService.register(memberDTO);
 		}
 
 		const secret_key = req.app.get('jwt-secret');
