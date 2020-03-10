@@ -10,7 +10,6 @@ const cors = require('cors');
 ==========================*/
 const dotenv = require('dotenv');
 dotenv.config();
-const config = require('./config/environment');
 const port = process.env.PORT || 5000;
 
 /* =======================
@@ -22,9 +21,6 @@ app.use(cors());
 // parse JSON and url-encoded query
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-
-// set the secret key variable for jwt
-app.set('jwt-secret', config.jwt_key);
 
 // configure api router
 app.use('/api', require('./api/routes'));

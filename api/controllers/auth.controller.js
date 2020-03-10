@@ -15,12 +15,12 @@ exports.socialLogin = async (req, res) => {
 	const memberDTO = req.body;
 	try {
 		const userExist = await AuthService.checkUser(memberDTO);
-
+		console.log('after checkuser ;' + JSON.stringify(memberDTO));
 		if (!userExist) {
 			await AuthService.register(memberDTO);
 		}
-
-		const secret_key = req.app.get('jwt-secret');
+		console.log('in socialLogin');
+		const secret_key = process.env.JWT_KEY;
 		const data = await AuthService.login(memberDTO, secret_key);
 		res.status(200).json({ success: true, data });
 	} catch (e) {
@@ -31,7 +31,7 @@ exports.socialLogin = async (req, res) => {
 exports.login = async (req, res) => {
 	const memberDTO = req.body;
 	try {
-		const secret_key = req.app.get('jwt-secret');
+		const secret_key = process.env.JWT_KEY;
 		const data = await AuthService.login(memberDTO, secret_key);
 
 		res.status(200).json({ success: true, data });

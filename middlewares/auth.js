@@ -13,7 +13,7 @@ const authMiddleware = async (req, res, next) => {
 	}
 
 	try {
-		const decoded = await jwt.verify(token, req.app.get('jwt-secret'));
+		const decoded = await jwt.verify(token, process.env.JWT_KEY);
 		req.decoded = decoded;
 		next();
 	} catch (e) {

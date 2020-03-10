@@ -25,4 +25,3 @@ const environments = {
 const nodeEnv = process.env.NODE_ENV || 'development';
 
 exports.db_environments = environments[nodeEnv];
-exports.jwt_key = 'SeCrEtKeYfOrHaShInG';
