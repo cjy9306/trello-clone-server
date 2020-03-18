@@ -74,6 +74,7 @@ exports.deleteList = async (req, res) => {
 
 exports.updateCardSequence = async (req, res) => {
 	const seqDTO = req.body;
+	console.log('in card seq ; ' + JSON.stringify(seqDTO));
 	try {
 		const message = await BoardService.updateCardSequence(seqDTO);
 
@@ -84,9 +85,11 @@ exports.updateCardSequence = async (req, res) => {
 };
 
 exports.updateListSequence = async (req, res) => {
+	console.warn(' in update List');
 	const { boardId } = req.params;
 	let seqDTO = req.body;
 	seqDTO['boardId'] = boardId;
+	console.log(' controller ; ' + JSON.stringify(seqDTO));
 	try {
 		const message = await BoardService.updateListSequence(seqDTO);
 

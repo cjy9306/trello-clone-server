@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const authMiddleware = async (req, res, next) => {
 	// read the token from header or url
 	const token = req.headers['accesstoken'] || req.query.token;
-	// console.log('authmiddleware ; ' + token)
+	// console.log('url ;  ' + req.url + ' token ; ' + token);
 
 	if (!token) {
 		return res.status(403).json({

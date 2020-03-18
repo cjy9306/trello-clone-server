@@ -123,6 +123,7 @@ class BoardService {
             trans.commit();
             return { board };
         } catch(e) {
+            trans.rollback();
             throw new Error(e);
         }
     };
@@ -289,6 +290,7 @@ class BoardService {
             trans.commit();
             return 'update success';
         } catch(e) {
+            trans.rollback();
             throw e;
         } 
     };
@@ -304,7 +306,7 @@ class BoardService {
                     {
                         where: {
                             [Op.and]: [
-                                { board_id: board_id },
+                                { board_id: seqDTO.boardId },
                                 { seq: {[Op.gte]: seqDTO.sourceListSeq + 1}},
                                 { seq: {[Op.lte]: seqDTO.destListSeq}},
                             ]
@@ -345,6 +347,7 @@ class BoardService {
             trans.commit();
             return 'update success';
         } catch(e) {
+            trans.rollback();
             throw e;
         }
     };
@@ -518,6 +521,7 @@ class BoardService {
             trans.commit();
             return { checklist };
         } catch(e) {
+            trans.rollback();
             throw e;
         }
     };
@@ -577,6 +581,7 @@ class BoardService {
             trans.commit();
             return { checklistItem };
         } catch(e) {
+            trans.rollback();
             throw e;
         }
     };
@@ -704,7 +709,6 @@ class BoardService {
     };
 
     updateCardLabel = async (labelDTO) => {
-        console.log('labelDTO ; ' + JSON.stringify(labelDTO))
         try {
             if (labelDTO.checked === true) {
                 // 새로 레이블이 추가됨

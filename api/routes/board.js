@@ -39,11 +39,12 @@ router.delete('/:boardId/list/:listId', authMiddleware);
 router.delete('/:boardId/list/:listId', controller.deleteList);
 
 // list, card seq
-router.put('/:boardId/list/:listId/card/seq', authMiddleware);
-router.put('/:boardId/list/:lisId/card/seq', controller.updateCardSequence);
 
-router.put('/:boardId/list/seq', authMiddleware);
-router.put('/:boardId/list/seq', controller.updateListSequence);
+router.put('/:boardId/list/:listId/seq', authMiddleware);
+router.put('/:boardId/list/:listId/seq', controller.updateListSequence);
+
+router.put('/:boardId/list/:listId/card/seq', authMiddleware);
+router.put('/:boardId/list/:listId/card/seq', controller.updateCardSequence);
 
 // card
 router.get('/:boardId/card/:cardId/members', authMiddleware);
