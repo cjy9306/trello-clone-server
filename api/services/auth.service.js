@@ -1,18 +1,10 @@
 const models = require('../../models/models');
 const jwt = require('jsonwebtoken');
-
-const generateCode = number => {
-	const digits = '0123456789';
-	let code = '';
-	for (let i = 0; i < number; i++) {
-		code += digits[Math.floor(Math.random() * 10)];
-	}
-	return code;
-};
+const generateCode = require('../../utils/utils').generateCode;
 
 class AuthService {
 	register = async memberDTO => {
-		const verify_code = generateCode(6);
+		const verify_code = generateCode(6); // for email confirm
 
 		try {
 			const check = await models.Members.findOne({
@@ -37,29 +29,6 @@ class AuthService {
 				social_login_provider: memberDTO.social_login_provider
 			});
 
-			// const sendVerifyEmail = async (result) => {
-			//     const smtpTransport = nodemailer.createTransport(smtpTransporter({
-			//         service: 'Gmail',
-			//         host: 'smtp.gmail.com',
-			//         auth: {
-			//             user: 'richson9306@gmail.com',
-			//             pass: '!@diclfn12'
-			//         }
-			//     }));
-
-			//     var mailOpt = {
-			//         from: 'richson9306@gmail.com',
-			//         to: body.email,
-			//         subject: 'verification code',
-			//         html: 'Verification Code : ' + verify_code,
-			//     }
-
-			//     const p = smtpTransport.sendMail(mailOpt);
-
-			//     smtpTransport.close();
-			//     return p;
-			// }
-
 			return { member };
 		} catch (e) {
 			throw e;
@@ -74,7 +43,6 @@ class AuthService {
 					password: memberDTO.password
 				}
 			});
-			console.log('before token');
 			if (!member) throw new Error('Username or password is invalid.');
 			const token = await jwt.sign(
 				{
@@ -86,7 +54,6 @@ class AuthService {
 					expiresIn: '1d'
 				}
 			);
-			console.log('after token');
 			return { token, member_id: member.member_id, username: member.username };
 		} catch (e) {
 			throw e;

@@ -1,23 +1,6 @@
 const router = require('express').Router();
 const controller = require('../controllers/board.controller');
 const authMiddleware = require('../../middlewares/auth');
-const multer = require('multer');
-const path = require('path');
-
-// const storage = multer.diskStorage({
-//     destination: function(req, file ,callback){
-//         callback(null, "uploads/");
-//     },
-//     filename: function(req, file, callback){
-//         let extension = path.extname(file.originalname);
-//         let basename = path.basename(file.originalname, extension);
-//         callback(null, basename + "-" + Date.now() + extension);
-//     }
-// });
-
-// const upload = multer({
-//     storage: storage,
-// });
 
 router.post('', authMiddleware);
 router.post('', controller.createBoard);
@@ -118,12 +101,5 @@ router.post('/:boardId/members', controller.addBoardMember);
 
 router.delete('/:boardId/members/:memberId', authMiddleware);
 router.delete('/:boardId/members/:memberId', controller.deleteBoardMember);
-
-// router.post('', authMiddleware)
-// router.post('', upload.array('files'))
-// router.post('', controller.post)
-
-// router.delete('/:id', authMiddleware)
-// router.delete('/:id', controller.deletePost);
 
 module.exports = router;
