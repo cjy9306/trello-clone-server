@@ -44,17 +44,50 @@ class AuthService {
 				}
 			});
 			if (!member) throw new Error('Username or password is invalid.');
-			const token = await jwt.sign(
+
+			const token = jwt.sign(
 				{
-					id: member.member_id,
+					memberId: member.member_id,
 					username: member.username
 				},
 				secret_key,
 				{
-					expiresIn: '1d'
+					expiresIn: '3d'
 				}
 			);
-			return { token, member_id: member.member_id, username: member.username };
+
+			return { token };
+		} catch (e) {
+			throw e;
+		}
+	};
+
+	refreshToken = async (token, secret_key) => {
+		try {
+			const decoded = jwt.decode(token);
+			const member = await models.Members.findOne({
+				where: {
+					member_id: decoded.memberId,
+					username: decoded.username
+				}
+			});
+
+			// need to log can not refresh token
+			// client error message doesn't need refresh message
+			if (!member) throw new Error('Invalid access. Please re-login');
+
+			const newToken = jwt.sign(
+				{
+					memberId: member.member_id,
+					username: member.username
+				},
+				secret_key,
+				{
+					expiresIn: '3d'
+				}
+			);
+
+			return { token: newToken };
 		} catch (e) {
 			throw e;
 		}
