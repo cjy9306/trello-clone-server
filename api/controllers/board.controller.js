@@ -38,7 +38,7 @@ exports.deleteBoard = async (req, res) => {
 
 exports.createList = async (req, res) => {
 	let listDTO = req.body;
-	listDTO['board_id'] = req.params.boardId;
+	listDTO['boardId'] = req.params.boardId;
 	try {
 		const list = await BoardService.createList(listDTO);
 
@@ -51,7 +51,7 @@ exports.createList = async (req, res) => {
 exports.updateList = async (req, res) => {
 	const { listId } = req.params;
 	let listDTO = req.body;
-	listDTO['list_id'] = listId;
+	listDTO['listId'] = listId;
 	try {
 		const message = await BoardService.updateList(listDTO);
 
@@ -84,7 +84,6 @@ exports.updateCardSequence = async (req, res) => {
 };
 
 exports.updateListSequence = async (req, res) => {
-	console.warn(' in update List');
 	const { boardId } = req.params;
 	let seqDTO = req.body;
 	seqDTO['boardId'] = boardId;
@@ -99,7 +98,7 @@ exports.updateListSequence = async (req, res) => {
 
 exports.createCard = async (req, res) => {
 	const cardDTO = req.body;
-	cardDTO['list_id'] = req.params.listId;
+	cardDTO['listId'] = req.params.listId;
 	try {
 		const card = await BoardService.createCard(cardDTO);
 
@@ -145,7 +144,7 @@ exports.getCardMembers = async (req, res) => {
 exports.addCardMember = async (req, res) => {
 	const { cardId } = req.params;
 	let memberDTO = req.body;
-	memberDTO['card_id'] = cardId;
+	memberDTO['cardId'] = cardId;
 	try {
 		const member = await BoardService.addCardMember(memberDTO);
 
@@ -180,7 +179,7 @@ exports.updateCard = async (req, res) => {
 exports.updateCardDescription = async (req, res) => {
 	const { cardId } = req.params;
 	let cardDTO = req.body;
-	cardDTO['card_id'] = cardId;
+	cardDTO['cardId'] = cardId;
 	try {
 		const message = await BoardService.updateCardDescription(cardDTO);
 
@@ -193,7 +192,7 @@ exports.updateCardDescription = async (req, res) => {
 exports.updateCardDueDate = async (req, res) => {
 	const { cardId } = req.params;
 	let cardDTO = req.body;
-	cardDTO['card_id'] = cardId;
+	cardDTO['cardId'] = cardId;
 	try {
 		const message = await BoardService.updateCardDueDate(cardDTO);
 
@@ -206,7 +205,7 @@ exports.updateCardDueDate = async (req, res) => {
 exports.createChecklist = async (req, res) => {
 	const { cardId } = req.params;
 	let checklistDTO = req.body;
-	checklistDTO['card_id'] = cardId;
+	checklistDTO['cardId'] = cardId;
 	try {
 		const checklist = await BoardService.createCheckList(checklistDTO);
 
@@ -241,7 +240,7 @@ exports.getChecklist = async (req, res) => {
 exports.createChecklistItem = async (req, res) => {
 	const { checklistId } = req.params;
 	let checklistItemDTO = req.body;
-	checklistItemDTO['checklist_id'] = checklistId;
+	checklistItemDTO['checklistId'] = checklistId;
 	try {
 		const checklistItem = await BoardService.createChecklistItem(checklistItemDTO);
 
@@ -254,7 +253,7 @@ exports.createChecklistItem = async (req, res) => {
 exports.updateChecklistItem = async (req, res) => {
 	const { itemId } = req.params;
 	let checklistItemDTO = req.body;
-	checklistItemDTO['item_id'] = itemId;
+	checklistItemDTO['itemId'] = itemId;
 	try {
 		const message = await BoardService.updateChecklistItem(checklistItemDTO);
 
@@ -278,7 +277,7 @@ exports.deleteChecklistItem = async (req, res) => {
 exports.createComment = async (req, res) => {
 	const { cardId } = req.params;
 	let commentDTO = req.body;
-	commentDTO['card_id'] = cardId;
+	commentDTO['cardId'] = cardId;
 	try {
 		const comment = await BoardService.createComment(commentDTO);
 
@@ -302,8 +301,8 @@ exports.deleteComment = async (req, res) => {
 exports.updateCardLabel = async (req, res) => {
 	const { cardId, labelId } = req.params;
 	let labelDTO = req.body;
-	labelDTO['card_id'] = cardId;
-	labelDTO['label_id'] = labelId;
+	labelDTO['cardId'] = cardId;
+	labelDTO['labelId'] = labelId;
 	try {
 		const message = await BoardService.updateCardLabel(labelDTO);
 
@@ -337,7 +336,7 @@ exports.getBoardMembers = async (req, res) => {
 exports.addBoardMember = async (req, res) => {
 	const { boardId } = req.params;
 	let memberDTO = req.body;
-	memberDTO['board_id'] = boardId;
+	memberDTO['boardId'] = boardId;
 	try {
 		const message = await BoardService.addBoardMember(memberDTO);
 

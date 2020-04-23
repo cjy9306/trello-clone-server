@@ -106,17 +106,17 @@ class BoardService {
         try {
             const board = await models.Board.create({
                 board_id: 0,
-                board_name: boardDTO.board_name,
-                public_scope: boardDTO.public_scope,
-                member_id: boardDTO.member_id,
-                team_id: boardDTO.team_id,
+                board_name: boardDTO.boardName,
+                public_scope: boardDTO.publicScope,
+                member_id: boardDTO.memberId,
+                team_id: boardDTO.teamId,
                 create_time: Date.now(),
-                background_color: boardDTO.background_color,
+                background_color: boardDTO.backgroundColor,
             }, {transaction: trans});
 
             const boardMember = await models.BoardMember.create({
                 board_id: board.board_id,
-                member_id: boardDTO.member_id,
+                member_id: boardDTO.memberId,
                 role: 'admin',
             }, {transaction: trans});
 
@@ -146,8 +146,8 @@ class BoardService {
         try {
             const list = await models.List.create({
                 list_id: 0,
-                board_id: listDTO.board_id,
-                list_name: listDTO.list_name,
+                board_id: listDTO.boardId,
+                list_name: listDTO.listName,
                 seq: listDTO.seq,
                 create_time: Date.now(),
             });
@@ -162,12 +162,12 @@ class BoardService {
         try {
             await models.List.update(
                 {
-                    list_name: listDTO.list_name,
+                    list_name: listDTO.listName,
                     seq: listDTO.seq,
                 },
                 {
                     where: {
-                        list_id: listDTO.list_id
+                        list_id: listDTO.listId
                     }
                 }
             );
@@ -356,7 +356,7 @@ class BoardService {
         try {
             const card = await models.Card.create({
                 card_id: 0,
-                list_id: cardDTO.list_id,
+                list_id: cardDTO.listId,
                 card_name: cardDTO.card_name,
                 seq: cardDTO.seq,
                 description: null,
@@ -474,7 +474,7 @@ class BoardService {
             if (!member) throw new Error('member not found')
             
             await models.CardMember.create({
-                card_id: memberDTO.card_id,
+                card_id: memberDTO.cardId,
                 member_id: member.member_id,
             }, { transaction: trans });
 
@@ -506,15 +506,15 @@ class BoardService {
         try {
             const count = await models.CheckList.count({
                 where: {
-                    card_id: checklistDTO.card_id,
+                    card_id: checklistDTO.cardId,
                 },
                 transaction: trans,
             });
             
             const checklist = await models.CheckList.create({
                 checklist_id: 0,
-                card_id: checklistDTO.card_id,
-                checklist_name: checklistDTO.checklist_name,
+                card_id: checklistDTO.cardId,
+                checklist_name: checklistDTO.checklistName,
                 seq: count,
             }, { transaction: trans });
 
@@ -566,15 +566,15 @@ class BoardService {
         try {
             const count = await models.CheckListItem.count({
                 where: {
-                    checklist_id: checklistItemDTO.checklist_id,
+                    checklist_id: checklistItemDTO.checklistId,
                 },
                 transaction: trans,
             });
 
             const checklistItem = await models.CheckListItem.create({
                 item_id: 0,
-                checklist_id: checklistItemDTO.checklist_id,
-                item_name: checklistItemDTO.item_name,
+                checklist_id: checklistItemDTO.checklistId,
+                item_name: checklistItemDTO.itemName,
                 seq: count,
             }, { transaction: trans });
 
@@ -590,12 +590,12 @@ class BoardService {
         try {
             await models.CheckListItem.update(
                 {
-                    item_name: checklistItemDTO.item_name,
+                    item_name: checklistItemDTO.itemName,
                     checked: checklistItemDTO.checked,
                 },
                 {
                     where: {
-                        item_id: checklistItemDTO.item_id,
+                        item_id: checklistItemDTO.itemId,
                     }
                 }
             );
@@ -649,7 +649,7 @@ class BoardService {
                 },
                 {
                     where: {
-                        card_id: cardDTO.card_id,
+                        card_id: cardDTO.cardId,
                     }
                 }
             );
@@ -664,11 +664,11 @@ class BoardService {
         try {
             await models.Card.update(
                 {
-                    due_date: cardDTO.due_date,
+                    due_date: cardDTO.dueDate,
                 },
                 {
                     where: {
-                        card_id: cardDTO.card_id,
+                        card_id: cardDTO.cardId,
                     }
                 }
             );
@@ -683,8 +683,8 @@ class BoardService {
         try {
             await models.Comment.create({
                 comment_id: 0,
-                card_id: commentDTO.card_id,
-                member_id: commentDTO.member_id,
+                card_id: commentDTO.cardId,
+                member_id: commentDTO.memberId,
                 contents: commentDTO.comment,
                 create_time: Date.now(),
             });
@@ -713,15 +713,15 @@ class BoardService {
             if (labelDTO.checked === true) {
                 // 새로 레이블이 추가됨
                 await models.CardLabels.create({
-                    card_id: labelDTO.card_id,
-                    label_id: labelDTO.label_id,
+                    card_id: labelDTO.cardId,
+                    label_id: labelDTO.labelId,
                 });
             } else {
                 // 기존 레이블을 삭제
                 await models.CardLabels.destroy({
                     where: {
-                        card_id: labelDTO.card_id,
-                        label_id: labelDTO.label_id,
+                        card_id: labelDTO.cardId,
+                        label_id: labelDTO.labelId,
                     },
                 })
             };
@@ -755,7 +755,7 @@ class BoardService {
             if (!member) throw new Error('The member has email does not exist.');
 
             await models.BoardMember.create({
-                board_id: memberDTO.board_id,
+                board_id: memberDTO.boardId,
                 member_id: member.member_id,
                 role: 'member',
             });

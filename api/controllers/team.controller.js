@@ -25,7 +25,7 @@ exports.getTeam = async (req, res) => {
 exports.updateTeam = async (req, res) => {
 	const { teamId } = req.params;
 	let teamDTO = req.body;
-	teamDTO['team_id'] = teamId;
+	teamDTO['teamId'] = teamId;
 	try {
 		const message = await TeamService.updateTeam(teamDTO);
 
@@ -49,7 +49,7 @@ exports.deleteTeam = async (req, res) => {
 exports.addTeamMember = async (req, res) => {
 	const { teamId } = req.params;
 	let memberDTO = req.body;
-	memberDTO['team_id'] = teamId;
+	memberDTO['teamId'] = teamId;
 	try {
 		const message = await TeamService.addTeamMember(memberDTO);
 

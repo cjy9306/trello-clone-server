@@ -42,7 +42,7 @@ class TeamService {
 
             const team_member = await models.TeamMember.create({
                 team_id: team.team_id,
-                member_id: teamDTO.member_id,
+                member_id: teamDTO.memberId,
             }, { transaction: trans });
 
             trans.commit();
@@ -86,7 +86,7 @@ class TeamService {
                     description: teamDTO.description,
                 }, {
                     where: {
-                        team_id: teamDTO.team_id,
+                        team_id: teamDTO.teamId,
                     }
                 }
             )
@@ -122,7 +122,7 @@ class TeamService {
             if (!member) throw new Error('can not find the member');
 
             await models.TeamMember.create({
-                team_id: memberDTO.team_id,
+                team_id: memberDTO.teamId,
                 member_id: member.member_id,
             });
 
