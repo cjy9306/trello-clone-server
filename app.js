@@ -16,6 +16,13 @@ const port = process.env.PORT || 5000;
     EXPRESS CONFIGURATION
 ==========================*/
 const app = express();
+const https = require('https');
+const fs = require('fs');
+
+const options = {
+    key: fs.readFileSync('ssl/private.pem', 'utf8'),
+    cert: fs.readFileSync('ssl/crt.pem', 'utf8'),
+}
 
 app.use(cors());
 // parse JSON and url-encoded query
@@ -26,6 +33,7 @@ app.use(bodyParser.json());
 app.use('/api', require('./api/routes'));
 
 // open the server
-app.listen(port, () => {
-	console.log(`Express is running on port ${port}`);
+
+https.createServer(options, app).listen(port, () => {
+    console.log(`Express is running on port ${port}`);
 });
