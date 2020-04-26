@@ -20,13 +20,13 @@ class AuthService {
 				username: memberDTO.username,
 				password: memberDTO.password,
 				name: memberDTO.name,
-				birth_day: memberDTO.birth_day,
+				birth_day: memberDTO.birthDay,
 				gender: memberDTO.gender,
 				email: memberDTO.email,
 				phone: memberDTO.phone,
 				email_verification: true,
 				verify_code: verify_code,
-				social_login_provider: memberDTO.social_login_provider
+				social_login_provider: memberDTO.socialLoginProvider
 			});
 
 			return { member };

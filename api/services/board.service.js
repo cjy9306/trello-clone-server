@@ -114,7 +114,7 @@ class BoardService {
                 background_color: boardDTO.backgroundColor,
             }, {transaction: trans});
 
-            const boardMember = await models.BoardMember.create({
+            await models.BoardMember.create({
                 board_id: board.board_id,
                 member_id: boardDTO.memberId,
                 role: 'admin',
