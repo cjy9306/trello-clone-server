@@ -43,7 +43,9 @@ class AuthService {
 					password: memberDTO.password
 				}
 			});
-			if (!member) throw new Error('Username or password is invalid.');
+
+			// if (!member) throw new Error('Username or password is invalid.');
+			if (!member) throw 'Username or password is invalid.';
 
 			const token = jwt.sign(
 				{
@@ -58,7 +60,8 @@ class AuthService {
 
 			return { token };
 		} catch (e) {
-			throw e;
+			if (typeof e === 'string') throw new Error(e);
+			else throw e;
 		}
 	};
 

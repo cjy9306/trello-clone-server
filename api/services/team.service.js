@@ -27,7 +27,7 @@ class TeamService {
         try {
             const exist = await models.Team.findOne({
                 where: {
-                    team_name: teamDTO.team_name
+                    team_name: teamDTO.teamName
                 }
             });
 
@@ -35,7 +35,7 @@ class TeamService {
 
             const team = await models.Team.create({
                 team_id: 0,
-                team_name: teamDTO.team_name,
+                team_name: teamDTO.teamName,
                 description: teamDTO.description,
                 create_time: Date.now(),
             }, { transaction: trans });
@@ -82,7 +82,7 @@ class TeamService {
     updateTeam = async (teamDTO) => {
         try {
             await models.Team.update({
-                    team_name: teamDTO.team_name,
+                    team_name: teamDTO.teamName,
                     description: teamDTO.description,
                 }, {
                     where: {

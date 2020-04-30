@@ -45,7 +45,7 @@ class BoardService {
             
             return { personalBoards, teamBoards };
         } catch(e) {
-            throw e;
+            throw new Error('Can not get board list. Please try again.');
         }
     };
 
@@ -77,7 +77,7 @@ class BoardService {
             });
             return { board, lists };
         } catch(e) {
-            throw e;
+            throw new Error('Can not get this board information. Please try again.');
         }
     };
 
@@ -96,13 +96,12 @@ class BoardService {
 
             return { members };
         } catch(e) {
-            throw e;
+            throw new Error('Can not get board members. Please try again.');
         }
     };
 
     createBoard = async (boardDTO) => {
         const trans = await models.sequelize.transaction();
-
         try {
             const board = await models.Board.create({
                 board_id: 0,
@@ -124,7 +123,7 @@ class BoardService {
             return { board };
         } catch(e) {
             trans.rollback();
-            throw new Error(e);
+            throw new Error('Can not create a board. Please try again.');
         }
     };
 
@@ -138,7 +137,7 @@ class BoardService {
 
             return 'delete board success';
         } catch(e) {
-            throw new Error(e);
+            throw new Error('Can not delete this board. Please try again.');
         }
     };
 
@@ -154,7 +153,7 @@ class BoardService {
             
             return { list };
         } catch(e) {
-            throw e;
+            throw new Error('Can not create a list. Please try again.');
         }
     };
 
@@ -174,7 +173,7 @@ class BoardService {
             
             return 'update success';
         } catch(e) {
-            throw e;
+            throw new Error('Can not update this list. Please try again.');
         }
     };
 
@@ -188,7 +187,7 @@ class BoardService {
             
             return 'delete success';
         } catch(e) {
-            throw e;
+            throw new Error('Can not delete this list. Please try again.');
         }
     }
 
@@ -291,7 +290,7 @@ class BoardService {
             return 'update success';
         } catch(e) {
             trans.rollback();
-            throw e;
+            throw new Error('Can not update this card. Please try again.');
         } 
     };
 
@@ -348,7 +347,7 @@ class BoardService {
             return 'update success';
         } catch(e) {
             trans.rollback();
-            throw e;
+            throw new Error('Can not update this list. Please try again.');
         }
     };
 
@@ -365,7 +364,7 @@ class BoardService {
             
             return { card };
         } catch(e) {
-            throw e;
+            throw new Error('Can not create a card. Please try again.');
         }
     };
 
@@ -423,7 +422,7 @@ class BoardService {
 
             return { card, checklist, comments, members };
         } catch(e) {
-            throw e;
+            throw new Error('Can not get this card\'s information. Please try again.');
         }
     };
 
@@ -437,7 +436,7 @@ class BoardService {
 
             return 'delete card success';
         } catch(e) {
-            throw e;
+            throw new Error('Can not delete this card. Please try again.');
         }
     }
 
@@ -457,7 +456,7 @@ class BoardService {
 
             return { members };
         } catch(e) {
-            throw e;
+            throw new Error('Can not get card members. Please try again.');
         }
     };
 
@@ -482,7 +481,7 @@ class BoardService {
             return { member };
         } catch(e) {
             trans.rollback();
-            throw e;
+            throw new Error('Can not add a member. Please try again.');
         }
     };
 
@@ -497,7 +496,7 @@ class BoardService {
 
             return 'delete card member success';
         } catch(e) {
-            throw e;
+            throw new Error('Can not delete this member. Please try again.');
         }
     };
 
@@ -522,7 +521,7 @@ class BoardService {
             return { checklist };
         } catch(e) {
             trans.rollback();
-            throw e;
+            throw new Error('Can not create a checklist. Please try again.');
         }
     };
 
@@ -536,7 +535,7 @@ class BoardService {
             
             return 'delete success';
         } catch(e) {
-            throw e;
+            throw new Error('Can not delete this checklist. Please try again.');
         }
     };
 
@@ -557,7 +556,7 @@ class BoardService {
             
             return { checklist };
         } catch(e) {
-            throw e;
+            throw new Error('Can not get this checklist\'s information. Please try again.');
         }
     };
 
@@ -582,7 +581,7 @@ class BoardService {
             return { checklistItem };
         } catch(e) {
             trans.rollback();
-            throw e;
+            throw new Error('Can not create a checklist item. Please try again.');
         }
     };
 
@@ -602,7 +601,7 @@ class BoardService {
             
             return 'update success';
         } catch(e) {
-            throw e;
+            throw new Error('Can not update this checklist item. Please try again.');
         }
     };
 
@@ -616,7 +615,7 @@ class BoardService {
             
             return 'delete success';
         } catch(e) {
-            throw e;
+            throw new Error('Can not delete this checklist item. Please try again.');
         }
     };
 
@@ -637,7 +636,7 @@ class BoardService {
             
             return 'update success';
         } catch(e) {
-            throw e;
+            throw new Error('Can not update this card. Please try again.');
         }
     };
 
@@ -656,7 +655,7 @@ class BoardService {
             
             return 'update success';
         } catch(e) {
-            throw e;
+            throw new Error('Can not update this card. Please try again.');
         }
     };
 
@@ -675,7 +674,7 @@ class BoardService {
             
             return 'update success';
         } catch(e) {
-            throw e;
+            throw new Error('Can not update this card. Please try again.');
         }
     };
 
@@ -690,7 +689,7 @@ class BoardService {
             });
             return 'create success';
         } catch(e) {
-            throw e;
+            throw new Error('Can not create a comment. Please try again.');
         }
     };
 
@@ -704,7 +703,7 @@ class BoardService {
 
             return 'delete success';
         } catch(e) {
-            throw e;
+            throw new Error('Can not delete this comment. Please try again.');
         }
     };
 
@@ -728,7 +727,7 @@ class BoardService {
 
             return 'update success';
         } catch(e) {
-            throw e;
+            throw new Error('Can not update this card\'s label. Please try again.');
         }
     };
 
@@ -738,7 +737,7 @@ class BoardService {
 
             return { labels };
         } catch(e) {
-            throw e;
+            throw new Error('Can not get labels. Please try again.');
         }
     };
 
@@ -762,7 +761,7 @@ class BoardService {
 
             return 'add member success';
         } catch(e) {
-            throw e;
+            throw new Error('Can not add a board member. Please try again.');
         }
     };
 
@@ -777,7 +776,7 @@ class BoardService {
 
             return 'delete member success';
         } catch(e) {
-            throw e;
+            throw new Error('Can not delete board member. Please try again.');
         }
     };
 
