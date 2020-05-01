@@ -356,7 +356,7 @@ class BoardService {
             const card = await models.Card.create({
                 card_id: 0,
                 list_id: cardDTO.listId,
-                card_name: cardDTO.card_name,
+                card_name: cardDTO.cardName,
                 seq: cardDTO.seq,
                 description: null,
                 due_date: null,
@@ -623,9 +623,9 @@ class BoardService {
         try {
             await models.Card.update(
                 {
-                    card_name: cardDTO.card_name,
+                    card_name: cardDTO.cardName,
                     description: cardDTO.description,
-                    due_date: cardDTO.due_date,
+                    due_date: cardDTO.dueDate,
                 },
                 {
                     where: {
