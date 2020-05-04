@@ -575,6 +575,7 @@ class BoardService {
                 checklist_id: checklistItemDTO.checklistId,
                 item_name: checklistItemDTO.itemName,
                 seq: count,
+                checked: checklistItemDTO.checked,
             }, { transaction: trans });
 
             trans.commit();
