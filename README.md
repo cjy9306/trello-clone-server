@@ -12,7 +12,12 @@ git clone https://github.com/cjy9306/trello-clone-server.git
 npm install
 ```
 
-## 프로젝트 빌드 및 실행
+## 프로젝트 설치 및 실행
+설치
+```
+npm install
+```
+
 시작
 ```
 npm start
