@@ -37,7 +37,7 @@ root
  
 ## 사용법
 해당 프로젝트가 필요하신 분들은 아래 내용을 수정하신 후 사용하시면 됩니다.
-1. root 폴더의 schema.sql 파일을 이용하여 mysql에 'trello' database 생성
+1. mysql에 'trello' database 생성
 2. 'trello' database에 해당 스크립트를 이용하여 스키마 생성
 3. root 폴더에 .env 파일 생성
 4. config 폴더의 environment.js 파일의 DB설정
