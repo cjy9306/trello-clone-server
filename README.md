@@ -1,7 +1,9 @@
 # Trello-clone server
-포트폴리오용으로 제작된 Trello 클론 코딩 프로젝트의 서버입니다.
-지속적으로 업데이트되고 있으며, 내용이 조금씩 바뀔 수 있습니다.
-서버는 Nodejs + Express를 사용하여 RESTful API 서버로 작성되었습니다.
+포트폴리오용으로 제작된 Trello 클론 코딩 프로젝트의 서버입니다.  
+  
+지속적으로 업데이트되고 있으며, 내용이 조금씩 바뀔 수 있습니다.  
+  
+서버는 Nodejs + Express를 사용하여 RESTful API 서버로 작성되었습니다.  
 
 클라이언트 Repo: [https://github.com/cjy9306/trello-clone](https://github.com/cjy9306/trello-clone)
 
@@ -13,11 +15,6 @@ npm install
 ```
 
 ## 프로젝트 설치 및 실행
-설치
-```
-npm install
-```
-
 시작
 ```
 npm start
