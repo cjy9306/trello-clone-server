@@ -6,6 +6,7 @@
 .pnp.js
 .env
 schema.sql
+launch.json
 /ssl
 
 # testing
