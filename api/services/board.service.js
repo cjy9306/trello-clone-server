@@ -352,6 +352,7 @@ class BoardService {
     };
 
     createCard = async (cardDTO) => {
+        const trans = await models.sequelize.transaction();
         try {
             const card = await models.Card.create({
                 card_id: 0,
@@ -360,10 +361,17 @@ class BoardService {
                 seq: cardDTO.seq,
                 description: null,
                 due_date: null,
-            });
+            }, { transaction: trans });
+
+            await models.CardMember.create({
+                card_id: card.card_id,
+                member_id: cardDTO.memberId,
+            }, { transaction: trans });
             
+            trans.commit();
             return { card };
         } catch(e) {
+            trans.rollback();
             throw new Error('Can not create a card. Please try again.');
         }
     };
