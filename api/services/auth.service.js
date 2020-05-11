@@ -1,6 +1,7 @@
 const models = require('../../models/models');
 const jwt = require('jsonwebtoken');
 const generateCode = require('../../utils/utils').generateCode;
+const crypto = require('crypto');
 
 class AuthService {
 	register = async memberDTO => {
@@ -18,7 +19,7 @@ class AuthService {
 			const member = await models.Members.create({
 				id: 0,
 				username: memberDTO.username,
-				password: memberDTO.password,
+				password: crypto.createHash('sha256').update(memberDTO.password),
 				name: memberDTO.name,
 				birth_day: memberDTO.birthDay,
 				gender: memberDTO.gender,
@@ -40,11 +41,10 @@ class AuthService {
 			const member = await models.Members.findOne({
 				where: {
 					username: memberDTO.username,
-					password: memberDTO.password
+					password: memberDTO.password === null ? null : crypto.createHash('sha256').update(memberDTO.password).digest('base64')
 				}
 			});
 
-			// if (!member) throw new Error('Username or password is invalid.');
 			if (!member) throw 'Username or password is invalid.';
 
 			const token = jwt.sign(
