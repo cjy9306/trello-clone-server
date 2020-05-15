@@ -1,17 +1,17 @@
 const AuthService = require('../services/auth.service');
 
-exports.register = async (req, res) => {
+exports.register = async (req, res, next) => {
 	const memberDTO = req.body;
 	try {
 		const member = await AuthService.register(memberDTO);
 
 		res.status(200).json({ success: true, data: member });
 	} catch (e) {
-		res.status(400).json({ success: false, data: e.message });
+		return next(e.message);
 	}
 };
 
-exports.socialLogin = async (req, res) => {
+exports.socialLogin = async (req, res, next) => {
 	const memberDTO = req.body;
 	try {
 		const userExist = await AuthService.checkUser(memberDTO);
@@ -22,11 +22,11 @@ exports.socialLogin = async (req, res) => {
 		const data = await AuthService.login(memberDTO, secret_key);
 		res.status(200).json({ success: true, data });
 	} catch (e) {
-		res.status(400).json({ success: false, data: e.message });
+		return next(e.message);
 	}
 };
 
-exports.login = async (req, res) => {
+exports.login = async (req, res, next) => {
 	const memberDTO = req.body;
 	try {
 		const secret_key = process.env.JWT_KEY;
@@ -34,11 +34,11 @@ exports.login = async (req, res) => {
 
 		res.status(200).json({ success: true, data });
 	} catch (e) {
-		res.status(400).json({ success: false, data: e.message });
+		return next(e.message);
 	}
 };
 
-exports.refreshToken = async (req, res) => {
+exports.refreshToken = async (req, res, next) => {
 	const token = req.headers['accesstoken'] || req.query.token;
 	try {
 		const secret_key = process.env.JWT_KEY;
@@ -46,6 +46,6 @@ exports.refreshToken = async (req, res) => {
 
 		res.status(200).json({ success: true, data });
 	} catch (e) {
-		res.status(400).json({ success: false, data: e.message });
+		return next(e.message);
 	}
 };

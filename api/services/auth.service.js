@@ -19,7 +19,7 @@ class AuthService {
 			const member = await models.Members.create({
 				id: 0,
 				username: memberDTO.username,
-				password: crypto.createHash('sha256').update(memberDTO.password),
+				password: crypto.createHash('sha256').update(memberDTO.password).digest('base64'),
 				name: memberDTO.name,
 				birth_day: memberDTO.birthDay,
 				gender: memberDTO.gender,
